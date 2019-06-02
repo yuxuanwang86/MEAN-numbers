@@ -1,0 +1,82 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="myApp">
+
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Node Angular Fact App</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#fact-list 				{ margin-bottom:30px; }
+		#fact-form 	 			{ margin-bottom:50px; }
+	</style>
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/facts.js"></script> <!-- load our fact service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+
+<body ng-controller="mainController">
+	<div class="container">
+		<!-- HEADER AND FACT COUNT -->
+		<div class="jumbotron text-center">
+			<h1>I'm a Fact-aholic</h1>
+		</div>
+		
+
+		<!-- FORM TO CREATE FACTS -->
+		<div id="fact-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter dates separated by commas (ex : 1/1, 4/13, 5/12) :"
+						 ng-model="formData.text">
+					</div>
+					<!-- createFact() WILL CREATE NEW FACTS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-disabled="processing" ng-click="createFact()">Get interesting data about the dates</button>
+				</form>
+			</div>
+		</div>
+		<!-- FACT LIST -->
+		<div id="fact-list" class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<!-- LOOP OVER THE FACTS IN $scope.facts -->
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Delete</th>
+								<th scope="col">Date</th>
+								<th scope="col">Fact</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="facts" ng-repeat="fact in facts">
+								<td><input type="checkbox" ng-click="deleteFact(fact._id)"></td>
+								<td>{{ fact.date }}</td>
+								<td>{{ fact.text }}</td>
+							</tr>
+						</tbody>
+					</table>
+	
+				</div>
+			</div>
+	</div>
+
+</body>
+
+</html>
